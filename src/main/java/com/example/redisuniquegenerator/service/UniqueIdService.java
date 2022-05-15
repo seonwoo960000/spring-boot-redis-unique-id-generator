@@ -21,18 +21,18 @@ public class UniqueIdService {
 
     public void insert() {
         // find key from redis
-        String key = null;
+        String uniqueId = null;
         while (true) {
-            key = redisService.get("uniqueId");
-            if (key != null) break;
+            uniqueId = redisService.pop("uniqueId");
+            if (uniqueId != null) break;
             else {
                 threadPoolTaskExecutor.submit(() -> redisUniqueIdGenerator.fillRedisUniqueIds(100));
+//                Thread.sleep(1000);
             }
         }
 
-        uniqueIdRepository.save(new UniqueId(key));
-        log.info("added {}", key);
+        uniqueIdRepository.save(new UniqueId(uniqueId));
+        log.info("added {}", uniqueId);
     }
-
 
 }

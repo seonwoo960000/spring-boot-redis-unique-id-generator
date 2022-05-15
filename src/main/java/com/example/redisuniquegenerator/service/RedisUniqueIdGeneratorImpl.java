@@ -15,6 +15,7 @@ public class RedisUniqueIdGeneratorImpl implements RedisUniqueIdGenerator{
     private final UniqueIdRepository uniqueIdRepository;
     private final RedisService redisService;
     private static SecureRandom secureRandom = new SecureRandom();
+    private final String REDIS_KEY_NAME = "uniqueUd";
 
     @Override
     public String generate() {
@@ -22,17 +23,17 @@ public class RedisUniqueIdGeneratorImpl implements RedisUniqueIdGenerator{
     }
 
     @Override
-    public boolean isValid(String key) {
-        return uniqueIdRepository.findUniqueIdByValue(key) == null;
+    public boolean isValid(String uniqueId) {
+        return uniqueIdRepository.findUniqueIdByValue(uniqueId) == null;
     }
 
     @Override
     public boolean shouldPushToRedis(int limit) {
-        return redisService.getSize("uniqueId") < limit;
+        return redisService.getSize(REDIS_KEY_NAME) < limit;
     }
 
     @Override
-    public void pushKeyToRedis(String key) {
-        redisService.insert("uniqueId", key);
+    public void pushKeyToRedis(String uniqueId) {
+        redisService.add(REDIS_KEY_NAME, uniqueId);
     }
 }

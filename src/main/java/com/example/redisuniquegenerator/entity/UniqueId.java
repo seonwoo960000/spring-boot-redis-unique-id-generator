@@ -20,7 +20,5 @@ public class UniqueId {
         this.value = value;
     }
 
-    public UniqueId() {
-
-    }
+    public UniqueId() {}
 }

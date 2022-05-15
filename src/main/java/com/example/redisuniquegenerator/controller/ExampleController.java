@@ -19,7 +19,7 @@ public class ExampleController {
 
     @PostMapping("/set/{key}/{uniqueId}")
     public void set(@PathVariable String key, @PathVariable String uniqueId) {
-        redisService.insert(key, uniqueId);
+        redisService.add(key, uniqueId);
     }
 
     @GetMapping("/keySize/{key}")

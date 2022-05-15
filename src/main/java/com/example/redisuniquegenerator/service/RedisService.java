@@ -11,15 +11,15 @@ public class RedisService {
 
     private final RedisTemplate redisTemplate;
 
-    public void insert(String key, String value) {
+    public String pop(String key) {
+        return (String) redisTemplate.opsForSet().pop(key);
+    }
+
+    public void add(String key, String value) {
         redisTemplate.opsForSet().add(key, value);
     }
 
     public Long getSize(String key) {
         return redisTemplate.opsForSet().size(key);
-    }
-
-    public String get(String key) {
-        return (String) redisTemplate.opsForSet().pop(key);
     }
 }
