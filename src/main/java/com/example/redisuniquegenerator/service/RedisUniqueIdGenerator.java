@@ -5,8 +5,8 @@ public interface RedisUniqueIdGenerator {
     // Generate Unique Id
     String generate();
 
-    // Check if key is unique
-    boolean isValid(String key);
+    // Check if UniqueId is unique
+    boolean isValid(String uniqueId);
 
     // Check if it is valid to push to Redis (ex) size of the UniqueIds data structure in Redis)
     boolean shouldPushToRedis(int limit);
