@@ -19,7 +19,8 @@ public class RedisUniqueIdGeneratorImpl implements RedisUniqueIdGenerator{
 
     @Override
     public String generate() {
-        return String.valueOf(secureRandom.nextLong() % 999999999);
+        Integer positiveRandomNumber = secureRandom.nextInt() & Integer.MAX_VALUE;
+        return String.valueOf(positiveRandomNumber % 1000000);
     }
 
     @Override
